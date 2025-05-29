@@ -20,6 +20,7 @@ django-environ = "*"
 supabase = "*"
 python-dotenv = "*"
 django-jazzmin = "*"
+mysqlclient = "*"
 
 [dev-packages]
 

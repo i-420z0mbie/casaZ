@@ -180,15 +180,14 @@ ASGI_APPLICATION = 'freeClassifieds.asgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'casaz_app_db',
-        'USER': 'casaz_app_db_user',
-        'PASSWORD': 'Zy8bTacp9P4bZ86aNKF9suRj9C79DZcr',
-        'HOST': 'dpg-d0s2bnk9c44c73cn3tr0-a.oregon-postgres.render.com',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'naomallc_casaZ_app',
+        'USER': 'naomallc_iam',
+        'PASSWORD': 'Jabmiester420@',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
-
 
 # Custom user model
 AUTH_USER_MODEL = 'main.CompleteUser'
