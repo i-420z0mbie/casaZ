@@ -21,6 +21,7 @@ supabase = "*"
 python-dotenv = "*"
 django-jazzmin = "*"
 mysqlclient = "*"
+whitenoise = "*"
 
 [dev-packages]
 
