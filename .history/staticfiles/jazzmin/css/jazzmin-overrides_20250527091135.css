@@ -1,0 +1,4 @@
+/* remove rounded corners on the dashboard panels */
+.dashboard-module .card {
+    border-radius: 0 !important;
+}
