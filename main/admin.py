@@ -11,8 +11,8 @@ class CompleteUserAdmin(admin.ModelAdmin):
 
 @admin.register(models.Property)
 class PropertyAdmin(admin.ModelAdmin):
-    list_display = ['creator', 'title', 'type', 'is_verified', 'is_featured', 'property_type', 'date_posted']
-    list_editable = ['is_verified', 'is_featured']
+    list_display = ['creator', 'title', 'is_verified', 'is_promoted', 'is_featured', 'is_recommended', 'property_type', 'date_posted']
+    list_editable = ['is_verified', 'is_featured', 'is_recommended', 'is_promoted',]
     search_fields = ['creator', 'type', 'property_type']
     list_filter = ['date_posted', 'is_featured', 'price']
 
@@ -53,3 +53,42 @@ class SavedPropertyAdmin(admin.ModelAdmin):
 @admin.register(models.Notification)
 class NotificationAdmin(admin.ModelAdmin):
     list_display = ['user', 'notif_type']
+
+
+
+@admin.register(models.PropertyReview)
+class PropertyReviewAdmin(admin.ModelAdmin):
+    list_display = ['review']
+
+
+@admin.register(models.ListingPayment)
+class ListingPaymentAdmin(admin.ModelAdmin):
+    list_display = ['user', 'property', 'amount', 'status']
+
+
+@admin.register(models.Perk)
+class PerkAdmin(admin.ModelAdmin):
+    list_display = ['code', 'label', 'has_badge', 'has_double_badge']
+
+
+
+@admin.register(models.SubscriptionPlan)
+class SubscriptionPlanAdmin(admin.ModelAdmin):
+    list_display = ['slug', 'display_name', 'price', 'is_active', 'duration_days']
+
+
+@admin.register(models.UserSubscription)
+class UserSubscriptionAdmin(admin.ModelAdmin):
+    list_display = ['user', 'plan', 'start_date', 'end_date', 'is_active', 'has_free_quota']
+    list_editable = ['is_active']
+
+
+@admin.register(models.SubscriptionPayment)
+class SubscriptionPaymentAdmin(admin.ModelAdmin):
+    list_display = ['user', 'subscription', 'amount', 'status']
+
+
+@admin.register(models.PromoCode)
+class PromoCodeAdmin(admin.ModelAdmin):
+    list_display = ['code', 'discount_percent', 'usage_limit', 'used_count', 'is_active']
+    list_editable = ['is_active']

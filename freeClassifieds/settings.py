@@ -14,22 +14,12 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 
-AWS_ACCESS_KEY_ID       = os.getenv("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY   = os.getenv("AWS_SECRET_ACCESS_KEY")
-AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME")
-AWS_S3_REGION_NAME      = os.getenv("AWS_S3_REGION_NAME")
-AWS_DEFAULT_ACL         = None
-AWS_QUERYSTRING_AUTH    = False
-
-# 2) Use your storage classes
-DEFAULT_FILE_STORAGE   = "main.storages.MediaStorage"
-STATICFILES_STORAGE    = "main.storages.StaticStorage"
-
-# 3) Build your URLs
-MEDIA_URL  = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/media/"
+MEDIA_URL  = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 
-
+PAYSTACK_PUBLIC_KEY = 'pk_test_f876e3c759ab0f0c937c073e9e21b1d0b111a89a'
+PAYSTACK_SECRET_KEY	= 'sk_test_eeda7083aef5a7f484ddd596e66273f351395c8b'
 
 
 
@@ -181,10 +171,10 @@ ASGI_APPLICATION = 'freeClassifieds.asgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'casaz_app_db',
-        'USER': 'casaz_app_db_user',
-        'PASSWORD': 'Zy8bTacp9P4bZ86aNKF9suRj9C79DZcr',
-        'HOST': 'dpg-d0s2bnk9c44c73cn3tr0-a.oregon-postgres.render.com',
+        'NAME': 'zombs',
+        'USER': 'postgres',
+        'PASSWORD': 'Attackontitan420@',
+        'HOST': 'localhost',
         'PORT': '5432',
     }
 }
@@ -193,16 +183,24 @@ DATABASES = {
 # Custom user model
 AUTH_USER_MODEL = 'main.CompleteUser'
 
-
 CHANNEL_LAYERS = {
     "default": {
-        "BACKEND": "channels_redis.core.RedisChannelLayer",
-        "CONFIG": {
-            # Pass the URL string directly
-            "hosts": [os.environ["REDIS_URL"]],
-        },
-    },
+        "BACKEND": "channels.layers.InMemoryChannelLayer",
+    }
 }
+
+
+
+
+# CHANNEL_LAYERS = {
+#     "default": {
+#         "BACKEND": "channels_redis.core.RedisChannelLayer",
+#         "CONFIG": {
+#             # Pass the URL string directly
+#             "hosts": [os.environ["REDIS_URL"]],
+#         },
+#     },
+# }
 
 # CORS settings
 CORS_ALLOW_ALL_ORIGINS = True
@@ -211,7 +209,7 @@ CORS_ALLOWED_ORIGINS = [
     'http://127.0.0.1:19006',
     'http://localhost:8081',
     'exp://127.0.0.1:19000',
-    'http://192.168.133.75:8000',
+    'http://192.168.157.75:8000',
     'https://casaz-2.onrender.com'
 ]
 
@@ -224,6 +222,7 @@ REST_FRAMEWORK = {
 
 CSRF_TRUSTED_ORIGINS = [
     "https://casaz-2.onrender.com",
+    'http://192.168.86.75:8000',
 ]
 
 CSRF_COOKIE_SECURE = True
