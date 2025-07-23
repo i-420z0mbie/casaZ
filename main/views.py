@@ -8,6 +8,7 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.decorators import action
 from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
+from django.db.models import F
 from rest_framework import status, parsers
 from rest_framework.filters import SearchFilter, OrderingFilter
 from django.db.models import Q, Max

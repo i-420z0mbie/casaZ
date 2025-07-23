@@ -34,15 +34,17 @@ class ChatConsumer(AsyncWebsocketConsumer):
         if not sender.is_authenticated or not recipient_id or not content:
             return
 
-        # Modified to include username in the saved message
-        message = await database_sync_to_async(self.save_message)(
+        # Get avatar URL during message creation
+        result = await database_sync_to_async(self.save_message)(
             sender.id, 
             recipient_id, 
             content,
-            sender.username  # Pass username here
+            sender.username
         )
+        message = result['message']
+        avatar_url = result['avatar_url']
 
-        # Send message with username to recipient
+        # Send message with avatar to recipient
         await self.channel_layer.group_send(
             f'chat_user_{recipient_id}',
             {
@@ -50,16 +52,17 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 'message': {
                     'id': message.id,
                     'sender': sender.id,
-                    'sender_username': sender.username,  # Add username
+                    'sender_username': sender.username,
                     'recipient': recipient_id,
                     'content': message.content,
                     'timestamp': str(message.timestamp),
                     'is_read': message.is_read,
+                    'avatar_url': avatar_url,  # ADDED AVATAR URL
                 }
             }
         )
 
-        # Also send confirmation to sender with username
+        # Also send confirmation to sender with avatar
         await self.send(text_data=json.dumps({
             'message': {
                 'id': message.id,
@@ -69,19 +72,32 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 'content': message.content,
                 'timestamp': str(message.timestamp),
                 'is_read': message.is_read,
+                'avatar_url': avatar_url,  # ADDED AVATAR URL
             }
         }))
 
-    # Modified save_message to accept username
     def save_message(self, sender_id, recipient_id, content, sender_username):
         sender = User.objects.get(id=sender_id)
         recipient = User.objects.get(id=recipient_id)
-        return Message.objects.create(
+        message = Message.objects.create(
             sender=sender,
             recipient=recipient,
             content=content,
-            sender_username=sender_username  # Store username in message
+            sender_username=sender_username
         )
+        
+        # Get sender's avatar URL (modify based on your Profile model)
+        avatar_url = None
+        try:
+            if sender.profile.avatar:  # Adjust this to match your profile structure
+                avatar_url = sender.profile.avatar.url
+        except Exception:
+            pass
+            
+        return {
+            'message': message,
+            'avatar_url': avatar_url
+        }
 
 
 class NotificationConsumer(AsyncWebsocketConsumer):

@@ -18,8 +18,8 @@ MEDIA_URL  = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 
-PAYSTACK_PUBLIC_KEY = 'pk_test_f876e3c759ab0f0c937c073e9e21b1d0b111a89a'
-PAYSTACK_SECRET_KEY	= 'sk_test_eeda7083aef5a7f484ddd596e66273f351395c8b'
+PAYSTACK_PUBLIC_KEY = 'pk_test_9e045e55f0f33796dc48365b2a4fa0dcc8ea0e92'
+PAYSTACK_SECRET_KEY	= 'sk_test_21573d264afc3cc181acbbbff1ced33c56e86adf'
 
 
 

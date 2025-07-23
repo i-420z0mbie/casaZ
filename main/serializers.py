@@ -79,7 +79,11 @@ class PropertySerializer(serializers.ModelSerializer):
                   'price', 'number_of_bedrooms', 
                   'number_of_bathrooms', 'property_type',
                   'features', 'images', 'city', 'detailed_address',
-                  'status', 'is_verified', 'is_featured', 'visit_count', 'is_promoted', 'is_recommended', 'expiry_date', 'slug', 'date_posted', 'reviews']
+                  'status', 'is_verified', 'is_featured', 'visit_count', 'condition',
+                    'is_promoted', 'is_recommended', 'expiry_date', 
+                    'slug', 'date_posted', 'reviews',
+                    'square_meters', 'parking_spaces', 'has_garage', 'wheelchair_access',
+                    'elevator', 'secure_parking', 'floor_number', 'year_built']
         
         read_only_fields = ['id', 'creator', 'is_verified', 'is_featured', 'date_posted']
 
