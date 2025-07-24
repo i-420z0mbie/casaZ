@@ -1,0 +1,4 @@
+.row.dashboard-module-row > .col-md-6 {
+    flex: 1 0 100% !important;
+    max-width: 100% !important;
+}

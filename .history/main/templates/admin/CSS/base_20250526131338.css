@@ -1,0 +1,79 @@
+/* Gradient Background */
+body {
+    background: linear-gradient(45deg, #2a1433, #1a1a2e) fixed;
+}
+
+/* Card Design */
+.card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+    transition: transform 0.3s ease;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(10px);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* Neon Accents */
+.accent-neon {
+    color: #0ff0fc;
+    text-shadow: 0 0 10px rgba(15,240,252,0.5);
+}
+
+/* Modern Table Design */
+table {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(45deg, #6f42c1, #0ff0fc) !important;
+    color: white !important;
+    font-weight: 600 !important;
+}
+
+/* Custom Button Design */
+.btn {
+    border-radius: 8px;
+    padding: 8px 20px;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, #6f42c1, #0ff0fc);
+    border: none;
+}
+
+/* Animated Icons */
+.fas {
+    transition: transform 0.3s ease;
+}
+
+.fas:hover {
+    transform: scale(1.2);
+}
+
+/* Dashboard Stats */
+.dashboard-stat {
+    padding: 25px;
+    border-radius: 15px;
+    color: white;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.dashboard-stat::after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: rgba(255,255,255,0.1);
+    transform: rotate(45deg);
+}

@@ -1,0 +1,29 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "*"
+djangorestframework = "*"
+djangorestframework-simplejwt = "*"
+pillow = "*"
+django-cors-headers = "*"
+drf-nested-routers = "*"
+psycopg2-binary = "*"
+django-filter = "*"
+channels = "*"
+daphne = "*"
+boto3 = "*"
+django-storages = "*"
+django-environ = "*"
+supabase = "*"
+python-dotenv = "*"
+django-jazzmin = "*"
+mysqlclient = "*"
+whitenoise = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.12"

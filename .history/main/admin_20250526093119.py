@@ -1,0 +1,29 @@
+from django.contrib import admin
+from . import models
+
+@admin.register(models.CompleteUser)
+class CompleteUserAdmin(admin.ModelAdmin):
+    list_display = []
+
+
+
+
+
+
+# admin.site.register(models.Property)
+
+# admin.site.register(models.City)
+
+# admin.site.register(models.Inquiry)
+
+# admin.site.register(models.Message)
+
+# admin.site.register(models.PropertyFeature)
+
+# admin.site.register(models.PropertyImage)
+
+# admin.site.register(models.Region)
+
+# admin.site.register(models.SavedProperty)
+
+# admin.site.register(models.Notification)

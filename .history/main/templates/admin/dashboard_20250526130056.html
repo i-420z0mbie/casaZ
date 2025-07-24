@@ -1,0 +1,51 @@
+{% extends 'admin/base_site.html' %}
+{% load static %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-4">
+    <div class="card text-white bg-info mb-3">
+      <div class="card-header">Properties</div>
+      <div class="card-body">
+        <h3 class="card-title">{{ stats.properties }}</h3>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card text-white bg-warning mb-3">
+      <div class="card-header">Inquiries</div>
+      <div class="card-body">
+        <h3 class="card-title">{{ stats.inquiries }}</h3>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card text-white bg-success mb-3">
+      <div class="card-header">Messages</div>
+      <div class="card-body">
+        <h3 class="card-title">{{ stats.messages }}</h3>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card mb-4">
+  <div class="card-header">Properties by City</div>
+  <div class="card-body">
+    <canvas id="cityChart"></canvas>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const labels = {{ city_data|pluck:'city__name'|safe }};
+  const data = {{ city_data|pluck:'total'|safe }};
+  new Chart(document.getElementById('cityChart'), {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [{ label: 'Properties', data }]
+    },
+  });
+</script>
+{% endblock %}

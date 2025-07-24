@@ -1,0 +1,85 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row">
+    <!-- Big Stat Cards -->
+    <div class="col-md-3 mb-4">
+      <div class="card text-white bg-primary shadow-lg">
+        <div class="card-body">
+          <h5 class="card-title"><i class="fas fa-home"></i> Properties</h5>
+          <p class="card-text display-4">{{ total_properties }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 mb-4">
+      <div class="card text-white bg-success shadow-lg">
+        <div class="card-body">
+          <h5 class="card-title"><i class="fas fa-question-circle"></i> Inquiries Today</h5>
+          <p class="card-text display-4">{{ inquiries_today }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 mb-4">
+      <div class="card text-white bg-warning shadow-lg">
+        <div class="card-body">
+          <h5 class="card-title"><i class="fas fa-envelope"></i> Unread Messages</h5>
+          <p class="card-text display-4">{{ unread_messages }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 mb-4">
+      <div class="card text-white bg-danger shadow-lg">
+        <div class="card-body">
+          <h5 class="card-title"><i class="fas fa-heart"></i> Favorites</h5>
+          <p class="card-text display-4">{{ favorites }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Inquiries This Year Chart -->
+  <div class="row">
+    <div class="col-12">
+      <div class="card shadow-lg">
+        <div class="card-header">
+          <h5><i class="fas fa-chart-line"></i> Monthly Inquiries ({{ now.year }})</h5>
+        </div>
+        <div class="card-body">
+          <canvas id="inquiriesChart" height="100"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Load Chart.js -->
+<script src="{% static 'admin/js/vendor/chart.js/Chart.min.js' %}"></script>
+<script>
+  const ctx = document.getElementById('inquiriesChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: [{% for m in 1|to:12 %}"{{ m }}"{% if not forloop.last %}, {% endif %}{% endfor %}],
+      datasets: [{
+        label: 'Inquiries',
+        data: [
+          {% for m in 1|to:12 %}
+            {{ inquiry_by_month|get_item:m|default:0 }}{% if not forloop.last %}, {% endif %}
+          {% endfor %}
+        ],
+        fill: false,
+        borderWidth: 2,
+        tension: 0.3,
+      }]
+    },
+    options: {
+      scales: {
+        x: { title: { display: true, text: 'Month' } },
+        y: { beginAtZero: true, title: { display: true, text: 'Count' } },
+      }
+    }
+  });
+</script>
+{% endblock %}
