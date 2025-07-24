@@ -169,7 +169,7 @@ ASGI_APPLICATION = 'freeClassifieds.asgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'naomallc_casaz',
+        'NAME': 'naomallc_casazzz',
         'USER': 'naomallc_1',
         'PASSWORD': 'Attackontitan420@',
         'HOST': 'localhost',
