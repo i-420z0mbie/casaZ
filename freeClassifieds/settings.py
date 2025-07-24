@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 from dotenv import load_dotenv
+import dj_database_url
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -176,6 +177,15 @@ DATABASES = {
         'PORT': '3306',
     }
 }
+
+
+# DATABASES = {
+#     "default": dj_database_url.config(
+#         default=os.environ.get("DATABASE_URL"),
+#         conn_max_age=600,
+#         ssl_require=True   # if your cPanel DB requires SSL
+#     )
+# }
 
 
 # Custom user model
