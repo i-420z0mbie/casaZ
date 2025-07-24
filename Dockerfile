@@ -8,7 +8,11 @@ WORKDIR /app
 # Install OS deps and Python deps from requirements.txt
 COPY requirements.txt /app/
 RUN apt-get update \
-  && apt-get install -y libpq-dev gcc \
+  && apt-get install -y \
+       gcc \
+       pkg-config \
+       default-libmysqlclient-dev \
+       libpq-dev \
   && rm -rf /var/lib/apt/lists/* \
   && pip install --upgrade pip \
   && pip install -r requirements.txt
