@@ -169,26 +169,16 @@ ASGI_APPLICATION = 'freeClassifieds.asgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'naomallc_casazzz',
-        'USER': 'naomallc_1',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'mineeer',
+        'USER': 'postgres',
         'PASSWORD': 'Attackontitan420@',
         'HOST': 'localhost',
-        'PORT': '3306',
+        'PORT': '5432',
     }
 }
 
 
-# DATABASES = {
-#     "default": dj_database_url.config(
-#         default=os.environ.get("DATABASE_URL"),
-#         conn_max_age=600,
-#         ssl_require=True   # if your cPanel DB requires SSL
-#     )
-# }
-
-
-# Custom user model
 AUTH_USER_MODEL = 'main.CompleteUser'
 
 REDIS_URL = "rediss://default:AcoyAAIjcDFjMTI2NjJhM2RiMDQ0OWE3YjM4YWU3OWUyZDEyYjhiMXAxMA@optimum-gar-51762.upstash.io:6379"
@@ -237,7 +227,7 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:8081',
     'exp://127.0.0.1:19000',
     'http://192.168.157.75:8000',
-    'https://casaz-2.onrender.com'
+
 ]
 
 # REST Framework
@@ -249,7 +239,7 @@ REST_FRAMEWORK = {
 
 CSRF_TRUSTED_ORIGINS = [
     "https://casaz-2.onrender.com",
-    'http://192.168.86.75:8000',
+    'http://192.168.157.75:8000',
 ]
 
 CSRF_COOKIE_SECURE = True

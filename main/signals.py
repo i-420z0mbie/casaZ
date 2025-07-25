@@ -5,6 +5,10 @@ from django.core.mail import send_mail
 from django.contrib.contenttypes.models import ContentType
 from asgiref.sync import async_to_sync
 from channels.layers import get_channel_layer
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from .models import Message, PushToken
+from .expo_utils import send_expo_push
 
 from .models import Property, Notification, ListingPayment
 
@@ -48,33 +52,44 @@ def property_verified(sender, instance, created, **kwargs):
 
 
 # main/signals.py
-from django.db.models.signals import post_save
-from django.dispatch import receiver
-from .models import Message, PushToken
-from .expo_utils import send_expo_push
+
 
 @receiver(post_save, sender=Message)
-def send_message_push(sender, instance: Message, created, **kwargs):
+def send_message_push_and_email(sender, instance: Message, created, **kwargs):
     if not created:
         return
 
-    print(f"[DEBUG] post_save for Message {instance.id} (from {instance.sender} to {instance.recipient})")
-
-    tokens = list(
-        PushToken.objects.filter(user=instance.recipient).values_list('token', flat=True)
-    )
-    print(f"[DEBUG] Found tokens: {tokens}")
-
+    # ——— 1) Send Expo push ———
+    tokens = list(PushToken.objects.filter(user=instance.recipient)
+                                  .values_list('token', flat=True))
     title = f"New message from {instance.sender.username}"
     body  = instance.content[:100]
-
     for t in tokens:
         try:
-            print(f"[DEBUG] Sending push to {t} …")
-            result = send_expo_push(t, title, body, data={'chatId': str(instance.id)})
-            print(f"[DEBUG] Expo response: {result}")
+            send_expo_push(t, title, body, data={'chatId': str(instance.id)})
         except Exception as exc:
+            # you might want to log this instead of print
             print(f"[ERROR] send_expo_push failed for {t}: {exc}")
+
+    # ——— 2) Send email ———
+    recipient_email = instance.recipient.email
+    if recipient_email:
+        subject = title
+        message = (
+            f"You have a new message from {instance.sender.username}:\n\n"
+            f"{instance.content}\n\n"
+            f"View it in the app to reply."
+        )
+        try:
+            send_mail(
+                subject,
+                message,
+                settings.DEFAULT_FROM_EMAIL,
+                [recipient_email],
+                fail_silently=False,
+            )
+        except Exception as exc:
+            print(f"[ERROR] send_mail failed for {recipient_email}: {exc}")
 
 
 

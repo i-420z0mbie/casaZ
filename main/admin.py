@@ -83,6 +83,9 @@ class UserSubscriptionAdmin(admin.ModelAdmin):
     list_editable = ['is_active']
 
 
+admin.site.register(models.PushToken)
+
+
 @admin.register(models.SubscriptionPayment)
 class SubscriptionPaymentAdmin(admin.ModelAdmin):
     list_display = ['user', 'subscription', 'amount', 'status']
